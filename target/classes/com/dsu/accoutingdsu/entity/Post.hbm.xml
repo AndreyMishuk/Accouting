@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 23, 2017 1:12:33 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.dsu.accoutingdsu.entity.Post" table="post" catalog="organization" optimistic-lock="version">
+        <id name="postId" type="java.lang.Integer">
+            <column name="post_id" />
+            <generator class="identity" />
+        </id>
+        <property name="post" type="string">
+            <column name="post" unique="true" />
+        </property>
+        <property name="salary" type="big_decimal">
+            <column name="salary" precision="10" />
+        </property>
+        <set name="userProfiles" table="user_profile" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="post_id" not-null="true" />
+            </key>
+            <one-to-many class="com.dsu.accoutingdsu.entity.UserProfile" />
+        </set>
+    </class>
+</hibernate-mapping>

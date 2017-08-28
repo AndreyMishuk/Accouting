@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Aug 23, 2017 1:12:33 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.dsu.accoutingdsu.entity.ReportCard" table="report_card" catalog="organization" optimistic-lock="version">
+        <id name="tabelId" type="java.lang.Integer">
+            <column name="tabel_id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="userProfile" class="com.dsu.accoutingdsu.entity.UserProfile" fetch="select">
+            <column name="person_id" not-null="true" />
+        </many-to-one>
+        <property name="timeWorked" type="java.lang.Integer">
+            <column name="time_worked" />
+        </property>
+        <property name="timeSickness" type="java.lang.Integer">
+            <column name="time_sickness" />
+        </property>
+        <property name="vacation" type="java.lang.Integer">
+            <column name="vacation" />
+        </property>
+        <one-to-one name="payroll" class="com.dsu.accoutingdsu.entity.Payroll"></one-to-one>
+    </class>
+</hibernate-mapping>
