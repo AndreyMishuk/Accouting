@@ -6,7 +6,6 @@ import com.dsu.accoutingdsu.entity.WorkCategory;
 import com.dsu.accoutingdsu.service.PostService;
 import com.dsu.accoutingdsu.service.UserProfileService;
 import com.dsu.accoutingdsu.service.WorkCategoryService;
-import com.dsu.accoutingdsu.web_controller.dispatcherServlet.LayoutRequest;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -19,17 +18,17 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PersannelDepartment", urlPatterns = "/staf")
 public class PersannelDepartment extends HttpServlet {
     
+    UserProfileService userService = new UserProfileService();
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        
-        UserProfileService userService = new UserProfileService();
-        PostService postService = new PostService();
+    
         WorkCategoryService categoryService = new WorkCategoryService();
-        LayoutRequest lr = new LayoutRequest();
+        PostService postService = new PostService();        
         
         List<Post> listPost = null;
         List<WorkCategory> listCategory = null;
@@ -68,7 +67,7 @@ public class PersannelDepartment extends HttpServlet {
         if (editButton != null) {
             
             try {
-                lr.editUser(request);
+                helperEditUser(request);
             } catch (SQLException ex) {
                 System.out.println("SQL ERROR: " + ex);
             }
@@ -91,7 +90,7 @@ public class PersannelDepartment extends HttpServlet {
         if (addRedactButton != null) {
             
             try {
-                lr.addUser(request);
+                helperAddUser(request);
             } catch (SQLException ex) {
                 System.out.println("SQL ERROR: " + ex);
             }
@@ -101,7 +100,7 @@ public class PersannelDepartment extends HttpServlet {
         if (removeButton != null) {
             
             try {
-                lr.removeUser(request);
+                helperRemoveUser(request);
             } catch (SQLException ex) {
                 System.out.println("SQL ERROR: " + ex);
             }
@@ -121,5 +120,44 @@ public class PersannelDepartment extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/persannelDepartment/staf.jsp").forward(request, response);
         
     }
+    
+private void helperEditUser(HttpServletRequest request) throws SQLException {
+
+        UserProfile user = new UserProfile();
+
+        user.setUserId((Integer.parseInt(request.getParameter("id"))));
+        user.setUserSurname(request.getParameter("surname"));
+        user.setUserName(request.getParameter("name"));
+        user.setUserMiddleName(request.getParameter("middlename"));
+        user.setPost(new Post());
+        user.getPost().setPostId(Integer.parseInt(request.getParameter("post")));
+        user.setWorkCategory(new WorkCategory());
+        user.getWorkCategory().setCategoryId(Integer.parseInt(request.getParameter("category")));
+
+        userService.updateUser(user);
+
+    }
+
+    private void helperAddUser(HttpServletRequest request) throws SQLException {
+
+        UserProfile user = new UserProfile();
+
+        user.setUserSurname(request.getParameter("surnameAdd"));
+        user.setUserName(request.getParameter("nameAdd"));
+        user.setUserMiddleName(request.getParameter("middlenameAdd"));
+        user.setPost(new Post());
+        user.getPost().setPostId(Integer.parseInt(request.getParameter("postAdd")));
+        user.setWorkCategory(new WorkCategory());
+        user.getWorkCategory().setCategoryId(Integer.parseInt(request.getParameter("categoryAdd")));
+
+        userService.addUser(user);
+
+    }
+
+    private void helperRemoveUser(HttpServletRequest request) throws SQLException {
+
+        userService.removeUserById(Integer.parseInt(request.getParameter("id")));
+
+    }    
     
 }

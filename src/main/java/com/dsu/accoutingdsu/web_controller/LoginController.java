@@ -24,8 +24,8 @@ public class LoginController extends DispatcherServlet {
         String password = request.getParameter("password");
         
         if("andrey".equals(login) && "qwerty".equals(password)) {
-
-            request.setAttribute("name", login);
+            
+            
             
             request.getRequestDispatcher("staf").forward(request, response);
             
