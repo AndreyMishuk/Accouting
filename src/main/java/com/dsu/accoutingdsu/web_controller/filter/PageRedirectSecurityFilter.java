@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(filterName = "PageRedirectSecurityFilte", urlPatterns = "/jsp/*",
+@WebFilter(filterName = "PageRedirectSecurityFilte", urlPatterns = "/*",
         initParams = {
             @WebInitParam(name = "INDEX_PATH", value = "/index.jsp")})
 
@@ -29,7 +29,6 @@ public class PageRedirectSecurityFilter implements Filter {
 
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponcse = (HttpServletResponse) response;
-        System.out.println("****************************************");
         httpResponcse.sendRedirect(httpRequest.getContextPath() + indexPath);
         chain.doFilter(request, response);
     }
