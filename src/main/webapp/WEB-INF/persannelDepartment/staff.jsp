@@ -4,10 +4,10 @@
 
 <h1>Hello staf</h1>
 
-<p>ListUser is : ${value}</p>
+<p>ListUser is : ${nameUser}</p>
 <div id="block-add">
 
-    <form action="staf" method="Post">
+    <form action="staff" method="Post">
         <p id="text-addUser">
             add user<input class="button-staf" id="batton-add" type="submit" value="add" name ="addButton">
         </p>
@@ -32,7 +32,7 @@
                 <tr class="tr_body-staf">
 
                     <td class="td-staf" align="center">
-                        <form method="Post" action="staf">
+                        <form method="Post" action="staff">
                             <input name="userId" type="submit" value="${user.userId}">
                         </form>
                     </td>
@@ -53,7 +53,7 @@
 <c:if test="${lPost != null}">
     <div class="block_editor-staf">
         <h2><p>ADD user</p></h2>
-        <form method="Post" action="staf">
+        <form method="Post" action="staff">
             <table class="table-staf">
                 <thead>
                     <tr class="tr_head-staf">
@@ -90,7 +90,7 @@
 <c:if test="${listOneUser != null}">
     <div class="block_editor-staf">
         <h2><p>Editor</p></h2>
-        <form method="Post" action="staf">
+        <form method="Post" action="staff">
             <table class="table-staf">
                 <thead>
                     <tr class="tr_head-staf">

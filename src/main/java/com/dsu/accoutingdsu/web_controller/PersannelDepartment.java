@@ -15,13 +15,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "PersannelDepartment", urlPatterns = "/staf")
+@WebServlet(name = "PersannelDepartment", urlPatterns = "/staff")
+//@RolesAllowed("persanneldepartment")
 public class PersannelDepartment extends HttpServlet {
     
     UserProfileService userService = new UserProfileService();
     
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         response.setContentType("text/html;charset=UTF-8");
@@ -35,6 +36,9 @@ public class PersannelDepartment extends HttpServlet {
         List<UserProfile> listUsers = null, listOneUser = null;
         
         int userId_int;
+        
+        String nameUser = (String) request.getAttribute("nameUser");
+        request.setAttribute("nameUser", nameUser);
         
         String userIdButton = request.getParameter("userId");
         
@@ -117,8 +121,21 @@ public class PersannelDepartment extends HttpServlet {
         
         request.setAttribute("listUsers", listUsers);
         
-        request.getRequestDispatcher("/WEB-INF/persannelDepartment/staf.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/persannelDepartment/staff.jsp").forward(request, response);
         
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
     
 private void helperEditUser(HttpServletRequest request) throws SQLException {

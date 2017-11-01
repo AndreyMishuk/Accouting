@@ -6,9 +6,9 @@
         </aside>
     </div>
     <div id="index_login">
-        <form id="login" name="login" method="Post" action="login" >
-            <p>Enter login <input type="text" name="login" value="" size="25" /></p>
-            <p>Enter password <input type="password" name="password" value="" size="25" /></p>
+        <form id="login" name="login" method="Post" action="j_security_check" >
+            <p>Enter login <input type="text" name="j_username" value="" size="25" /></p>
+            <p>Enter password <input type="password" name="j_password" value="" size="25" /></p>
             <p><input type="submit" value="input" name="input" /></p>
         </form>
         <br>
